@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Input from '../components/Input';
-// import ShoppingCart from './ShoppingCart';
 import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
 import Categorie from '../components/Categorie';
 
