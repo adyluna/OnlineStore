@@ -32,7 +32,7 @@ class ShoppingCart extends Component {
                 <p data-testid="shopping-cart-product-name">{title}</p>
                 <img src={ thumbnail } alt={ title } />
                 <p>{price}</p>
-                <p data-testid="shopping-cart-product-quantity">1</p>
+                <p data-testid="shopping-cart-product-quantity">01</p>
               </div>
             </div>
           ))}
