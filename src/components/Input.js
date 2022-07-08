@@ -22,7 +22,7 @@ class Input extends Component {
 Input.propTypes = {
   label: PropTypes.string,
   name: PropTypes.string,
-  onChange: PropTypes.string,
+  onChange: PropTypes.func,
   testid: PropTypes.string,
   type: PropTypes.string.isRequired,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),

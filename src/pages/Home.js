@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom';
 import Input from '../components/Input';
 // import ShoppingCart from './ShoppingCart';
 import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
+import Categorie from '../components/Categorie';
 
 class Home extends Component {
   constructor() {
     super();
     this.state = {
-      categorie: [],
+      categories: [],
       searchItem: '',
       items: [],
     };
@@ -21,7 +22,7 @@ class Home extends Component {
   showCategories = async () => {
     const data = await getCategories();
     this.setState({
-      categorie: data,
+      categories: data,
     });
   }
 
@@ -36,9 +37,22 @@ class Home extends Component {
     this.setState({ [name]: value });
   }
 
+  fetchCategorieItems = async (target) => {
+    const { id } = target;
+    const URL = `https://api.mercadolibre.com/sites/MLB/search?category=${id}`;
+    const response = await fetch(URL);
+    const data = await response.json();
+    return data;
+  }
+
+  getCategorieItems = async ({ target }) => {
+    const retorno = await this.fetchCategorieItems(target);
+    this.setState({ items: retorno });
+  }
+
   render() {
     const myText = 'Digite algum termo de pesquisa ou escolha uma categoria.';
-    const { categorie, searchItem, items } = this.state;
+    const { categories, searchItem, items } = this.state;
     return (
       <div>
         <Input
@@ -64,14 +78,16 @@ class Home extends Component {
         </h3>
         <Link data-testid="shopping-cart-button" to="/cart">Carrinho</Link>
         <section>
-          { categorie.map((cat) => (
-            <button
-              type="button"
-              data-testid="category"
-              key={ cat.id }
-            >
-              { cat.name }
-            </button>))}
+          { categories.map(({ id, name }) => (
+            // Aqui eu troquei o button por um componente "Categorie"
+            <Categorie
+              key={ id }
+              id={ id }
+              testid="category"
+              name={ name }
+              onClick={ this.getCategorieItems }
+            />
+          ))}
         </section>
         <div>
           {
