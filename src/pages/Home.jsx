@@ -49,6 +49,10 @@ class Home extends Component {
     this.setState({ items: retorno });
   }
 
+  infProduct = (event) => {
+    console.log(event);
+  }
+
   render() {
     const myText = 'Digite algum termo de pesquisa ou escolha uma categoria.';
     const { categories, searchItem, items } = this.state;
@@ -92,7 +96,11 @@ class Home extends Component {
           {
             items.length === 0 ? 'Nenhum produto foi encontrado'
               : items.results.map((item) => (
-                <div key={ item.id } data-testid="product">
+                <div
+                  key={ item.id }
+                  data-testid="product"
+                  onChange={ this.infoProduct }
+                >
                   <p>{item.title}</p>
                   <img src={ item.thumbnail } alt={ item.title } />
                   <p>{ item.price }</p>
