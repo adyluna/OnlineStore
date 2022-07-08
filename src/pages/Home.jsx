@@ -92,11 +92,19 @@ class Home extends Component {
           {
             items.length === 0 ? 'Nenhum produto foi encontrado'
               : items.results.map((item) => (
-                <div key={ item.id } data-testid="product">
-                  <p>{item.title}</p>
-                  <img src={ item.thumbnail } alt={ item.title } />
-                  <p>{ item.price }</p>
-                </div>
+                <Link
+                  to={ `/product/${item.id}` }
+                  data-testid="product-detail-link"
+                  key={ item.id }
+                >
+                  <div
+                    data-testid="product"
+                  >
+                    <p>{item.title}</p>
+                    <img src={ item.thumbnail } alt={ item.title } />
+                    <p>{ item.price }</p>
+                  </div>
+                </Link>
               ))
           }
         </div>
