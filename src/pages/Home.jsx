@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Input from '../components/Input';
@@ -52,6 +53,7 @@ class Home extends Component {
   render() {
     const myText = 'Digite algum termo de pesquisa ou escolha uma categoria.';
     const { categories, searchItem, items } = this.state;
+    const { onClick } = this.props;
     return (
       <div>
         <Input
@@ -77,7 +79,7 @@ class Home extends Component {
         </h3>
         <Link data-testid="shopping-cart-button" to="/cart">Carrinho</Link>
         <section>
-          { categories.map(({ id, name }) => (
+          {categories.map(({ id, name }) => (
             // Aqui eu troquei o button por um componente "Categorie"
             <Categorie
               key={ id }
@@ -92,19 +94,29 @@ class Home extends Component {
           {
             items.length === 0 ? 'Nenhum produto foi encontrado'
               : items.results.map((item) => (
-                <Link
-                  to={ `/product/${item.id}` }
-                  data-testid="product-detail-link"
-                  key={ item.id }
-                >
-                  <div
-                    data-testid="product"
+                <>
+                  <Link
+                    to={ `/product/${item.id}` }
+                    data-testid="product-detail-link"
+                    key={ item.id }
                   >
-                    <p>{item.title}</p>
-                    <img src={ item.thumbnail } alt={ item.title } />
-                    <p>{ item.price }</p>
-                  </div>
-                </Link>
+                    <div
+                      data-testid="product"
+                    >
+                      <p>{item.title}</p>
+                      <img src={ item.thumbnail } alt={ item.title } />
+                      <p>{ item.price }</p>
+                    </div>
+                  </Link>
+                  <button
+                    type="button"
+                    data-testid="product-add-to-cart"
+                    name="favorites"
+                    onClick={ () => onClick(item) }
+                  >
+                    Adicionar ao Carrinho
+                  </button>
+                </>
               ))
           }
         </div>
@@ -112,5 +124,9 @@ class Home extends Component {
     );
   }
 }
+
+Home.propTypes = {
+  onClick: PropTypes.func.isRequired,
+};
 
 export default Home;

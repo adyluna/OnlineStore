@@ -6,14 +6,26 @@ import ShoppingCart from './pages/ShoppingCart';
 import Product from './pages/Product';
 // import { getCategories, getProductsFromCategoryAndQuery } from './services/api';
 
-function App() {
-  return (
-    <BrowserRouter>
-      <Route exact path="/" component={ Home } />
-      <Route path="/cart" component={ ShoppingCart } />
-      <Route path="/product/:id" component={ Product } />
-    </BrowserRouter>
-  );
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = { favorites: [] };
+  }
+
+  addProduct = (elem) => {
+    this.setState((prev) => ({ favorites: [...prev.favorites, elem] }));
+  }
+
+  render() {
+    const { favorites } = this.state;
+    return (
+      <BrowserRouter>
+        <Route exact path="/" render={ () => <Home onClick={ this.addProduct } /> } />
+        <Route path="/cart" render={ () => <ShoppingCart addCart={ favorites } /> } />
+        <Route path="/product/:id" component={ Product } />
+      </BrowserRouter>
+    );
+  }
 }
 
 export default App;
