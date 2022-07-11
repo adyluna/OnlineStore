@@ -5,11 +5,12 @@ import { Link } from 'react-router-dom';
 class ShoppingCart extends Component {
   constructor() {
     super();
-    this.state = { listProducts: [] };
+    this.state = { listProducts: [] , listProductsInfo: [] };
   }
 
   componentDidMount() {
     this.getProducts();
+    this.getProductsInfos();
   }
 
   getProducts = () => {
@@ -17,9 +18,14 @@ class ShoppingCart extends Component {
     this.setState({ listProducts: addCart });
   }
 
+  getProductsInfos = () => {
+    const { addInfo } = this.props;
+    this.setState({ listProductsInfo: addInfo });
+  }
+
   render() {
     const message = 'Seu carrinho está vazio';
-    const { listProducts } = this.state;
+    const { listProducts, listProductsInfo } = this.state;
     return (
       <div>
         <Link to="/">Home</Link>
@@ -36,6 +42,12 @@ class ShoppingCart extends Component {
               </div>
             </div>
           ))}
+          <div>
+            <p data-testid="shopping-cart-product-name">{listProductsInfo.title}</p>
+            <img src={listProductsInfo.thumbnail} alt={listProductsInfo.title } />
+            <p>{listProductsInfo.price}</p>
+            <p data-testid="shopping-cart-product-quantity">01</p>
+          </div>
       </div>
     );
   }
@@ -43,6 +55,7 @@ class ShoppingCart extends Component {
 
 ShoppingCart.propTypes = {
   addCart: PropTypes.arrayOf.isRequired,
+  addInfo: PropTypes.arrayOf.isRequired,
 };
 
 export default ShoppingCart;

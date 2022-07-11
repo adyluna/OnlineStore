@@ -16,6 +16,7 @@ class Product extends React.Component {
   }
 
   request = () => {
+    console.log(this.props);
     const { match } = this.props;
     const { id } = match.params;
     productID(id).then((item) => {
@@ -27,6 +28,7 @@ class Product extends React.Component {
 
   render() {
     const { infos } = this.state;
+    const { addProduct } = this.props;
     return (
       <div>
         <Link to="/">Home</Link>
@@ -36,6 +38,14 @@ class Product extends React.Component {
             <p data-testid="product-detail-name">{infos.title}</p>
             <img src={ infos.thumbnail } alt={ infos.title } />
             <p>{infos.price}</p>
+            <button
+                    type="button"
+                    data-testid="product-detail-add-to-cart"
+                    name="favorites"
+                    onClick={ () => addProduct(infos) }
+                  >
+                    Adicionar ao Carrinho
+                  </button> 
           </div>
         </div>
       </div>
@@ -49,6 +59,7 @@ Product.propTypes = {
       id: PropTypes.string,
     }),
   }).isRequired,
+  addProduct: PropTypes.func.isRequired,
 };
 
 export default Product;

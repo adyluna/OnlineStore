@@ -53,9 +53,10 @@ class Home extends Component {
   render() {
     const myText = 'Digite algum termo de pesquisa ou escolha uma categoria.';
     const { categories, searchItem, items } = this.state;
-    const { onClick } = this.props;
+    const { addProduct } = this.props;
     return (
       <div>
+        {console.log(items)}
         <Input
           type="textarea"
           testid="query-input"
@@ -100,6 +101,7 @@ class Home extends Component {
                     data-testid="product-detail-link"
                     key={ item.id }
                   >
+                    {console.log(item.id)}
                     <div
                       data-testid="product"
                     >
@@ -112,7 +114,7 @@ class Home extends Component {
                     type="button"
                     data-testid="product-add-to-cart"
                     name="favorites"
-                    onClick={ () => onClick(item) }
+                    onClick={ () => addProduct(item) }
                   >
                     Adicionar ao Carrinho
                   </button>
@@ -126,7 +128,7 @@ class Home extends Component {
 }
 
 Home.propTypes = {
-  onClick: PropTypes.func.isRequired,
+  addProduct: PropTypes.func.isRequired,
 };
 
 export default Home;
