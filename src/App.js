@@ -25,8 +25,20 @@ class App extends React.Component {
     return (
       <BrowserRouter>
         <Route exact path="/" render={ () => <Home addProduct={ this.addProduct } /> } />
-        <Route path="/cart" render={ () => <ShoppingCart addCart={ favorites } addInfo={ favoritesInfo} /> }  />
-        <Route path="/product/:id" render={ (props) => <Product addProduct={ this.addProductInfo } {...props}/> } />
+        <Route
+          path="/cart"
+          render={ () => (<ShoppingCart
+            addCart={ favorites }
+            addInfo={ favoritesInfo }
+          />) }
+        />
+        <Route
+          path="/product/:id"
+          render={ (props) => (<Product
+            addProduct={ this.addProductInfo }
+            { ...props }
+          />) }
+        />
       </BrowserRouter>
     );
   }

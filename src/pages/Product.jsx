@@ -39,13 +39,13 @@ class Product extends React.Component {
             <img src={ infos.thumbnail } alt={ infos.title } />
             <p>{infos.price}</p>
             <button
-                    type="button"
-                    data-testid="product-detail-add-to-cart"
-                    name="favorites"
-                    onClick={ () => addProduct(infos) }
-                  >
-                    Adicionar ao Carrinho
-                  </button> 
+              type="button"
+              data-testid="product-detail-add-to-cart"
+              name="favorites"
+              onClick={ () => addProduct(infos) }
+            >
+              Adicionar ao Carrinho
+            </button>
           </div>
         </div>
       </div>

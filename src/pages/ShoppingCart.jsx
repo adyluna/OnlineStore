@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 class ShoppingCart extends Component {
   constructor() {
     super();
-    this.state = { listProducts: [] , listProductsInfo: [] };
+    this.state = { listProducts: [], listProductsInfo: [] };
   }
 
   componentDidMount() {
@@ -42,12 +42,12 @@ class ShoppingCart extends Component {
               </div>
             </div>
           ))}
-          <div>
-            <p data-testid="shopping-cart-product-name">{listProductsInfo.title}</p>
-            <img src={listProductsInfo.thumbnail} alt={listProductsInfo.title } />
-            <p>{listProductsInfo.price}</p>
-            <p data-testid="shopping-cart-product-quantity">01</p>
-          </div>
+        <div>
+          <p data-testid="shopping-cart-product-name">{listProductsInfo.title}</p>
+          <img src={ listProductsInfo.thumbnail } alt={ listProductsInfo.title } />
+          <p>{listProductsInfo.price}</p>
+          <p data-testid="shopping-cart-product-quantity">01</p>
+        </div>
       </div>
     );
   }
