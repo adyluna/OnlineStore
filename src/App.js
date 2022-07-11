@@ -9,20 +9,36 @@ import Product from './pages/Product';
 class App extends React.Component {
   constructor() {
     super();
-    this.state = { favorites: [] };
+    this.state = { favorites: [], favoritesInfo: [] };
   }
 
   addProduct = (elem) => {
     this.setState((prev) => ({ favorites: [...prev.favorites, elem] }));
   }
 
+  addProductInfo = (elem) => {
+    this.setState({ favoritesInfo: elem });
+  }
+
   render() {
-    const { favorites } = this.state;
+    const { favorites, favoritesInfo } = this.state;
     return (
       <BrowserRouter>
-        <Route exact path="/" render={ () => <Home onClick={ this.addProduct } /> } />
-        <Route path="/cart" render={ () => <ShoppingCart addCart={ favorites } /> } />
-        <Route path="/product/:id" component={ Product } />
+        <Route exact path="/" render={ () => <Home addProduct={ this.addProduct } /> } />
+        <Route
+          path="/cart"
+          render={ () => (<ShoppingCart
+            addCart={ favorites }
+            addInfo={ favoritesInfo }
+          />) }
+        />
+        <Route
+          path="/product/:id"
+          render={ (props) => (<Product
+            addProduct={ this.addProductInfo }
+            { ...props }
+          />) }
+        />
       </BrowserRouter>
     );
   }
