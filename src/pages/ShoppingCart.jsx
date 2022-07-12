@@ -1,31 +1,38 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import CartProduct from '../components/CartProduct';
 
 class ShoppingCart extends Component {
   constructor() {
     super();
-    this.state = { listProducts: [], listProductsInfo: [] };
+    this.state = { listProducts: [], total: 0 };
   }
 
   componentDidMount() {
     this.getProducts();
-    this.getProductsInfos();
   }
 
   getProducts = () => {
-    const { addCart } = this.props;
-    this.setState({ listProducts: addCart });
+    const { products } = this.props;
+    this.setState({ listProducts: products });
   }
 
-  getProductsInfos = () => {
-    const { addInfo } = this.props;
-    this.setState({ listProductsInfo: addInfo });
-  }
+  // incrementQuantity = () => {
+  //   this.setState((state) => ({ quantity: state.quantity + 1 }));
+  // }
+
+  //   decrementQuantity = () => {
+  //     const { quantity } = this.state;
+  //     if (quantity > 1) {
+  //       this.setState((state) => ({ quantity: state.quantity - 1 }));
+  //     }
+  //   }
 
   render() {
     const message = 'Seu carrinho está vazio';
-    const { listProducts, listProductsInfo } = this.state;
+    const { listProducts, total } = this.state;
+    const totalItens = `R$ ${total},00`;
     return (
       <div>
         <Link to="/">Home</Link>
@@ -33,29 +40,22 @@ class ShoppingCart extends Component {
           <h3 data-testid="shopping-cart-empty-message">{ message }</h3>
         )
           : listProducts.map(({ title, thumbnail, price, id }) => (
-            <div key={ id }>
-              <div>
-                <p data-testid="shopping-cart-product-name">{title}</p>
-                <img src={ thumbnail } alt={ title } />
-                <p>{price}</p>
-                <p data-testid="shopping-cart-product-quantity">01</p>
-              </div>
-            </div>
+            <CartProduct
+              key={ id }
+              title={ title }
+              thumbnail={ thumbnail }
+              price={ price }
+              id={ id }
+            />
           ))}
-        <div>
-          <p data-testid="shopping-cart-product-name">{listProductsInfo.title}</p>
-          <img src={ listProductsInfo.thumbnail } alt={ listProductsInfo.title } />
-          <p>{listProductsInfo.price}</p>
-          <p data-testid="shopping-cart-product-quantity">01</p>
-        </div>
+        { totalItens }
       </div>
     );
   }
 }
 
 ShoppingCart.propTypes = {
-  addCart: PropTypes.arrayOf.isRequired,
-  addInfo: PropTypes.arrayOf.isRequired,
+  products: PropTypes.arrayOf.isRequired,
 };
 
 export default ShoppingCart;
