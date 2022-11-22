@@ -1,4 +1,4 @@
-# BlogsApi
+# OnlineStore
 
 # Contexto
 
